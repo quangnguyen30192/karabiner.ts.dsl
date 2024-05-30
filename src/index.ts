@@ -42,6 +42,7 @@ writeToProfile("Quang Nguyen Karabiner modified", [
     map("j", "left_option").to("down_arrow"),
     map("k", "left_option").to("up_arrow"),
     map("l", "left_option").to("right_arrow"),
+    map("k", "left_option", "left_control").to("up_arrow", "left_control").description("Open mission control"),
   ]),
 ], {
   "basic.simultaneous_threshold_milliseconds": 50,
