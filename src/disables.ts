@@ -14,5 +14,7 @@ export function buildDisableKeys(): RuleBuilder[] {
       "Disable (Map to F11 which is harmless) Cmd-Q for Alacritty due to frequently accidentally press",
       ifApp("^io\\.Alarcritty$")
     ).manipulators([map("q", "command").toNone()]),
+
+    rule( "Disable logout macos - shift cmd q").manipulators([map("q", ["shift", "command"]).toNone()]),
   ];
 }
