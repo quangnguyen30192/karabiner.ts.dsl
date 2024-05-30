@@ -4,6 +4,7 @@ import { buildSystemKeys } from "./system";
 import { buildTerminalKeys } from "./terminal";
 import { buildDisableKeys } from "./disables";
 import { buildOpenAppsKeys } from "./apps";
+import { buildMouseKeys } from "./mouses";
 
 writeToProfile("Quang Nguyen Karabiner modified", [
   rule("Basic").manipulators([
@@ -34,6 +35,7 @@ writeToProfile("Quang Nguyen Karabiner modified", [
 
   ...buildDisableKeys(),
   buildOpenAppsKeys(),
+  buildMouseKeys(),
 
   rule("option and hjkl to arrow key").manipulators([
     map("h", "left_option").to("left_arrow"),
