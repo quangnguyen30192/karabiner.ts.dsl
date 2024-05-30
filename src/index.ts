@@ -66,6 +66,23 @@ writeToProfile("Quang Nguyen Karabiner modified", [
   hyperLayer("w")
     .description("Windows")
     .manipulators([
+
+      map("y")
+        .to$(rectangle("previous-display"))
+        .description("Move app to the prev screen"),
+      map("o")
+        .to$(rectangle("next-display"))
+        .description("Move app to the next screen"),
+      map("k").to$(rectangle("top-half")).description("Move app to top half"),
+      map("j")
+        .to$(rectangle("bottom-half"))
+        .description("Move app to bottom half"),
+      map("h").to$(rectangle("left-half")).description("Move app to left half"),
+      map("l")
+        .to$(rectangle("right-half"))
+        .description("Move app to right half"),
+      map("f").to$(rectangle("maximize")).description("Maximize app"),
+
       map("u")
         .to("tab", ["right_control", "right_shift"])
         .description("Go prev tab"),
@@ -84,7 +101,7 @@ writeToProfile("Quang Nguyen Karabiner modified", [
         .description("move mouse to next screen"),
       map("open_bracket")
         .to("o", ["right_command", "right_control"])
-        .description("move mouse to next scree"),
+        .description("move mouse to next screen"),
     ]),
 
   hyperLayer("s")
@@ -229,18 +246,22 @@ function moveRight(x: number): ToMouseKey {
   return { speed_multiplier: 1.2, x: x };
 }
 
-function scrollUp(speed: number): ToMouseKey {
+function scrollRight(speed: number): ToMouseKey {
   return { speed_multiplier: 1.2, horizontal_wheel: -speed };
 }
 
-function scrollDown(speed: number): ToMouseKey {
+function scrollLeft(speed: number): ToMouseKey {
   return { speed_multiplier: 1.2, horizontal_wheel: speed };
 }
 
-function scrollLeft(speed: number): ToMouseKey {
+function scrollDown(speed: number): ToMouseKey {
   return { speed_multiplier: 1.2, vertical_wheel: -speed };
 }
 
-function scrollRight(speed: number): ToMouseKey {
+function scrollUp(speed: number): ToMouseKey {
   return { speed_multiplier: 1.2, vertical_wheel: speed };
+}
+
+function rectangle(command: string) {
+  return `open -g rectangle://execute-action?name=${command}`;
 }
