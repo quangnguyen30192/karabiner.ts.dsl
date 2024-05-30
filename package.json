@@ -1,0 +1,17 @@
+{
+  "name": "karabiner-config",
+  "description": "Quang Nguyen karabiner configuration",
+  "license": "Quang Nguyen",
+  "scripts": {
+    "build": "ts-node src/index.ts",
+    "update": "npm update karabiner.ts",
+    "prettier": "./node_modules/prettier/bin-prettier.js **/**.ts --write"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.13",
+    "karabiner.ts": "latest",
+    "prettier": "^2.8.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
