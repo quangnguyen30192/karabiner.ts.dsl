@@ -31,14 +31,12 @@ export function buildWindowsKeys(): RuleBuilder {
       // map('b').to('open_bracket', 'right_command'), // go back
       // map('m').to('close_bracket', 'right_command'), // go forth
 
-      // require CatchMouse to be installed, so that moving mouse to other screen works
-      // and set ctrl + cmd + p/o to move the mouse
       map("close_bracket")
-        .to("p", ["right_command", "right_control"])
-        .description("move mouse to next screen"),
+        .toMouseCursorPosition({ x: '50%', y: '50%', screen: 0})
+        .description("move mouse to the first screen"),
       map("open_bracket")
-        .to("o", ["right_command", "right_control"])
-        .description("move mouse to next screen"),
+        .toMouseCursorPosition({ x: '50%', y: '50%', screen: 1})
+        .description("move mouse to the 2nd screen"),
     ]);
 }
 
