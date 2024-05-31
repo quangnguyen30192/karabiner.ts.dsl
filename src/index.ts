@@ -5,13 +5,10 @@ import { buildTerminalKeys } from "./terminal";
 import { buildDisableKeys } from "./disables";
 import { buildOpenAppsKeys } from "./apps";
 import { buildMouseKeys } from "./mouses";
+import { buildCapLocksKey } from "./caplocks";
 
 writeToProfile("Quang Nguyen Karabiner modified", [
   rule("Basic").manipulators([
-    map("caps_lock")
-      .toHyper()
-      .toIfAlone("escape")
-      .description("cap to hyper or escape"),
     map("delete_or_backspace", "shift")
       .to("delete_forward")
       .description("Offer shift delete"),
@@ -29,10 +26,10 @@ writeToProfile("Quang Nguyen Karabiner modified", [
       .description("Easily pressing : when left cmd is pressed alone"),
   ]),
 
+  buildCapLocksKey(),
   buildWindowsKeys(),
   buildSystemKeys(),
   buildTerminalKeys(),
-
   ...buildDisableKeys(),
   buildOpenAppsKeys(),
   buildMouseKeys(),
