@@ -15,6 +15,6 @@ export function buildDisableKeys(): RuleBuilder[] {
       ifApp("^io\\.Alarcritty$")
     ).manipulators([map("q", "command").toNone()]),
 
-    rule( "Disable logout macos - shift cmd q").manipulators([map("q", ["shift", "command"]).toNone()]),
+    rule("Disable logout macos - shift cmd q").manipulators([map("q", ["shift", "command"]).toNone()]),
   ];
 }
