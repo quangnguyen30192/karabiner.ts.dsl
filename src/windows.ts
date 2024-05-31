@@ -30,13 +30,6 @@ export function buildWindowsKeys(): RuleBuilder {
 
       // map('b').to('open_bracket', 'right_command'), // go back
       // map('m').to('close_bracket', 'right_command'), // go forth
-
-      map("close_bracket")
-        .toMouseCursorPosition({ x: "50%", y: "50%", screen: 0 })
-        .description("move mouse to the first screen"),
-      map("open_bracket")
-        .toMouseCursorPosition({ x: "50%", y: "50%", screen: 1 })
-        .description("move mouse to the 2nd screen"),
     ]);
 }
 

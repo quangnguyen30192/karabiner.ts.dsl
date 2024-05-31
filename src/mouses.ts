@@ -89,6 +89,14 @@ export function buildMouseKeys(): RuleBuilder {
       map("x").toMouseKey(scrollUp(WHEEL_SPEED)),
       map("z").toMouseKey(scrollLeft(WHEEL_SPEED)),
       map("v").toMouseKey(scrollRight(WHEEL_SPEED)),
+
+      // keymaps reflects to physical screens
+      map("2")
+        .toMouseCursorPosition({ x: "50%", y: "50%", screen: 0 })
+        .description("move mouse to the first screen"),
+      map("1")
+        .toMouseCursorPosition({ x: "50%", y: "50%", screen: 1 })
+        .description("move mouse to the 2nd screen"),
     ]),
   ]);
 }
