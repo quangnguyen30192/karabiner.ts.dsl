@@ -17,16 +17,16 @@ const NAV_KEY = ["w", "s", "a", "d"];
 
 export function buildMouseKeys(): RuleBuilder {
   return rule("Control mouse by keys").manipulators([
-    map("right_control")
+    map("right_shift", "any")
       .toVar("mouse_mode")
       .toAfterKeyUp(resetVar("mouse_mode")),
 
-    map("delete_forward")
+    map("slash")
       .toVar("mouse_faster_move_speed")
       .toAfterKeyUp(resetVar("mouse_faster_move_speed"))
       .condition(ifMouseMode()),
 
-    map("right_shift")
+    map("right_control")
       .toVar("mouse_slower_move_speed")
       .toAfterKeyUp(resetVar("mouse_slower_move_speed"))
       .condition(ifMouseMode()),

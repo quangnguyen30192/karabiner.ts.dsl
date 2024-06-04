@@ -39,11 +39,11 @@ writeToProfile(
     buildMouseKeys(),
 
     rule("option and hjkl to arrow key").manipulators([
-      map("h", "left_option").to("left_arrow"),
-      map("j", "left_option").to("down_arrow"),
-      map("k", "left_option").to("up_arrow"),
-      map("l", "left_option").to("right_arrow"),
-      map("k", "left_option", "left_control")
+      map("h", "option", "any").to("left_arrow"), // with any then it h+option could combine with the other keys
+      map("j", "option", "any").to("down_arrow"),
+      map("k", "option", "any").to("up_arrow"),
+      map("l", "option", "any").to("right_arrow"),
+      map("k", "option", "left_control")
         .to("up_arrow", "left_control")
         .description("Open mission control"),
     ]),
