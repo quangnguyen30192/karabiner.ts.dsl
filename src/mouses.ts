@@ -55,7 +55,7 @@ export function buildMouseKeys(): RuleBuilder {
     withModifier("right_shift")([
       map("slash", "any")
         .toVar("mouse_faster_move_speed")
-        .toAfterKeyUp(resetVar("mouse_faster_move_speed")),
+        .toAfterKeyUp(resetVar("mouse_faster_move_speed")).toIfAlone("slash"),
 
       map("right_control", "any")
         .toVar("mouse_slower_move_speed")
