@@ -19,6 +19,8 @@ export function buildWindowsKeys(): RuleBuilder {
         .to$(rectangle("right-half"))
         .description("Move app to right half"),
       map("f").to$(rectangle("maximize")).description("Maximize app"),
+      map("b").to$(rectangle("bottom-right-ninth")).description("Bottom right"),
+      map("-").to$(rectangle("smaller")).description("Smaller"),
 
       map("u")
         .to("tab", ["right_control", "right_shift"])
