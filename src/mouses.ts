@@ -17,18 +17,39 @@ const NAV_KEY = ["w", "s", "a", "d"];
 
 export function buildMouseKeys(): RuleBuilder {
   return rule("Control mouse by keys").manipulators([
-    // enable mouse key by quick pressing, and disable by holding
-    map("right_shift", "any").toVar("mouse_mode").toIfHeldDown([resetVar("mouse_mode"), resetVar("mouse_slower_move_speed"), resetVar("mouse_faster_move_speed")]),
+    // enable mouse key
+    map("right_shift")
+      .to([
+        enableVar("mouse_mode"),
+        resetVar("mouse_faster_move_speed"),
+        resetVar("mouse_slower_move_speed"),
+      ])
+      .toIfHeldDown("right_shift")
+      .toNotificationMessage("mouse_key", "Mouse enabled"),
 
-    map("slash", "any")
-      .toVar("mouse_faster_move_speed")
-      .toIfHeldDown(resetVar("mouse_faster_move_speed"))
-      .toIfAlone("slash")
+    // disable mouse key
+    map("non_us_pound")
+      .to([
+        resetVar("mouse_mode"),
+        resetVar("mouse_slower_move_speed"),
+        resetVar("mouse_faster_move_speed"),
+      ])
+      .toRemoveNotificationMessage("mouse_key"),
+
+    // move faster during mouse mode
+    map("slash")
+      .to([
+        enableVar("mouse_faster_move_speed"),
+        resetVar("mouse_slower_move_speed"),
+      ])
       .condition(ifMouseMode()),
 
+    // move slower during mouse mode
     map("right_control")
-      .toVar("mouse_slower_move_speed")
-      .toIfHeldDown(resetVar("mouse_slower_move_speed"))
+      .to([
+        enableVar("mouse_slower_move_speed"),
+        resetVar("mouse_faster_move_speed"),
+      ])
       .condition(ifMouseMode()),
 
     withCondition(ifMoveSlower())([
@@ -149,5 +170,11 @@ function scrollUp(speed: number): ToMouseKey {
 function resetVar(name: string): ToEvent {
   return {
     set_variable: { name, value: 0 },
+  };
+}
+
+function enableVar(name: string): ToEvent {
+  return {
+    set_variable: { name, value: 1 },
   };
 }
