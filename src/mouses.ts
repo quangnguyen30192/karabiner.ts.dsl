@@ -3,6 +3,7 @@ import {
   RuleBuilder,
   ToEvent,
   ToMouseKey,
+  hyperLayer,
   ifVar,
   map,
   rule,
@@ -15,27 +16,31 @@ const NORMAl_SPEED = 850;
 const FASTER_SPEED = 1500;
 const NAV_KEY = ["w", "s", "a", "d"];
 
+export function buildMouseKeysToggle(): RuleBuilder {
+  return hyperLayer("s")
+    .description("Mouse mode")
+    .manipulators([
+      map("m")
+        .to([
+          enableVar("mouse_mode"),
+          resetVar("mouse_faster_move_speed"),
+          resetVar("mouse_slower_move_speed"),
+        ])
+        .description("Enable mouse mode")
+        .toNotificationMessage("enable_mouse_noti", "Mouse enabled"),
+      map("n")
+        .to([
+          resetVar("mouse_mode"),
+          resetVar("mouse_slower_move_speed"),
+          resetVar("mouse_faster_move_speed"),
+        ])
+        .description("Disable mouse mode")
+        .toRemoveNotificationMessage("enable_mouse_noti"),
+    ]);
+}
+
 export function buildMouseKeys(): RuleBuilder {
   return rule("Control mouse by keys").manipulators([
-    // enable mouse key
-    map("right_shift")
-      .to([
-        enableVar("mouse_mode"),
-        resetVar("mouse_faster_move_speed"),
-        resetVar("mouse_slower_move_speed"),
-      ])
-      .toIfHeldDown("right_shift")
-      .toNotificationMessage("mouse_key", "Mouse enabled"),
-
-    // disable mouse key
-    map("non_us_pound")
-      .to([
-        resetVar("mouse_mode"),
-        resetVar("mouse_slower_move_speed"),
-        resetVar("mouse_faster_move_speed"),
-      ])
-      .toRemoveNotificationMessage("mouse_key"),
-
     // move faster during mouse mode
     map("slash")
       .to([
@@ -53,6 +58,12 @@ export function buildMouseKeys(): RuleBuilder {
       .condition(ifMouseMode()),
 
     withCondition(ifMoveSlower())([
+      map("right_shift").to([
+        enableVar("mouse_mode"),
+        resetVar("mouse_faster_move_speed"),
+        resetVar("mouse_slower_move_speed"),
+      ]),
+
       map(NAV_KEY.at(0) as FromKeyCode)
         .toMouseKey(moveUp(SLOWER_SPEED))
         .description("mouse move up slower"),
@@ -68,6 +79,12 @@ export function buildMouseKeys(): RuleBuilder {
     ]),
 
     withCondition(ifMoveFaster())([
+      map("right_shift").to([
+        enableVar("mouse_mode"),
+        resetVar("mouse_faster_move_speed"),
+        resetVar("mouse_slower_move_speed"),
+      ]),
+
       map(NAV_KEY.at(0) as FromKeyCode)
         .toMouseKey(moveUp(FASTER_SPEED))
         .description("mouse move up faster"),
@@ -121,12 +138,26 @@ export function buildMouseKeys(): RuleBuilder {
       map("v").toMouseKey(scrollRight(WHEEL_SPEED)),
 
       // keymaps reflects to physical screens
-      map("close_bracket")
+      map("o")
+        .toMouseCursorPosition({ x: "50%", y: "15%", screen: 0 })
+        .description("move mouse the upper of the 2nd screen"),
+      map("i")
+        .toMouseCursorPosition({ x: "50%", y: "15%", screen: 1 })
+        .description("move mouse the upper of the 1st screen"),
+
+      map("k")
         .toMouseCursorPosition({ x: "50%", y: "50%", screen: 0 })
         .description("move mouse to the first screen"),
-      map("open_bracket")
+      map("j")
         .toMouseCursorPosition({ x: "50%", y: "50%", screen: 1 })
         .description("move mouse to the 2nd screen"),
+
+      map("m")
+        .toMouseCursorPosition({ x: "50%", y: "85%", screen: 0 })
+        .description("move mouse to the lower of the 2nd screen"),
+      map("n")
+        .toMouseCursorPosition({ x: "50%", y: "85%", screen: 1 })
+        .description("move mouse to the lower of the 1st screen"),
     ]),
   ]);
 }
