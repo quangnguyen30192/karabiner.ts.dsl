@@ -3,7 +3,6 @@ import {
   RuleBuilder,
   ToEvent,
   ToMouseKey,
-  hyperLayer,
   ifVar,
   map,
   rule,
@@ -12,58 +11,22 @@ import {
 
 const WHEEL_SPEED = 50;
 const SLOWER_SPEED = 300;
-const NORMAl_SPEED = 850;
-const FASTER_SPEED = 1500;
+const NORMAl_SPEED = 1500;
+const FASTER_SPEED = 3600;
 const NAV_KEY = ["w", "s", "a", "d"];
-
-export function buildMouseKeysToggle(): RuleBuilder {
-  return hyperLayer("s")
-    .description("Mouse mode")
-    .manipulators([
-      map("m")
-        .to([
-          enableVar("mouse_mode"),
-          resetVar("mouse_faster_move_speed"),
-          resetVar("mouse_slower_move_speed"),
-        ])
-        .description("Enable mouse mode")
-        .toNotificationMessage("enable_mouse_noti", "Mouse enabled"),
-      map("n")
-        .to([
-          resetVar("mouse_mode"),
-          resetVar("mouse_slower_move_speed"),
-          resetVar("mouse_faster_move_speed"),
-        ])
-        .description("Disable mouse mode")
-        .toRemoveNotificationMessage("enable_mouse_noti"),
-    ]);
-}
 
 export function buildMouseKeys(): RuleBuilder {
   return rule("Control mouse by keys").manipulators([
-    // move faster during mouse mode
-    map("slash")
+    map("spacebar", "left_control")
       .to([
-        enableVar("mouse_faster_move_speed"),
-        resetVar("mouse_slower_move_speed"),
-      ])
-      .condition(ifMouseMode()),
-
-    // move slower during mouse mode
-    map("right_control")
-      .to([
-        enableVar("mouse_slower_move_speed"),
-        resetVar("mouse_faster_move_speed"),
-      ])
-      .condition(ifMouseMode()),
-
-    withCondition(ifMoveSlower())([
-      map("right_shift").to([
         enableVar("mouse_mode"),
         resetVar("mouse_faster_move_speed"),
         resetVar("mouse_slower_move_speed"),
-      ]),
+      ])
+      .description("Enable mouse mode")
+      .toNotificationMessage("enable_mouse_noti", "Mouse enabled"),
 
+    withCondition(ifMoveSlower())([
       map(NAV_KEY.at(0) as FromKeyCode)
         .toMouseKey(moveUp(SLOWER_SPEED))
         .description("mouse move up slower"),
@@ -79,12 +42,6 @@ export function buildMouseKeys(): RuleBuilder {
     ]),
 
     withCondition(ifMoveFaster())([
-      map("right_shift").to([
-        enableVar("mouse_mode"),
-        resetVar("mouse_faster_move_speed"),
-        resetVar("mouse_slower_move_speed"),
-      ]),
-
       map(NAV_KEY.at(0) as FromKeyCode)
         .toMouseKey(moveUp(FASTER_SPEED))
         .description("mouse move up faster"),
@@ -100,6 +57,16 @@ export function buildMouseKeys(): RuleBuilder {
     ]),
 
     withCondition(ifMouseMode())([
+      // disable mousekey
+      map("spacebar")
+        .to([
+          resetVar("mouse_mode"),
+          resetVar("mouse_slower_move_speed"),
+          resetVar("mouse_faster_move_speed"),
+        ])
+        .description("Disable mouse mode")
+        .toRemoveNotificationMessage("enable_mouse_noti"),
+
       map("slash", "any")
         .toVar("mouse_faster_move_speed")
         .toAfterKeyUp(resetVar("mouse_faster_move_speed"))

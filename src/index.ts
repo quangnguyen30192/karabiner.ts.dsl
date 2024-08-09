@@ -4,7 +4,7 @@ import { buildSystemKeys } from "./system";
 import { buildTerminalKeys } from "./terminal";
 import { buildDisableKeys } from "./disables";
 import { buildOpenAppsKeys } from "./apps";
-import { buildMouseKeys, buildMouseKeysToggle } from "./mouses";
+import { buildMouseKeys } from "./mouses";
 import { buildCapLocksKey } from "./caplocks";
 
 writeToProfile(
@@ -36,7 +36,6 @@ writeToProfile(
     buildTerminalKeys(),
     ...buildDisableKeys(),
     buildOpenAppsKeys(),
-    buildMouseKeysToggle(),
     buildMouseKeys(),
 
     rule("option and hjkl to arrow key").manipulators([
