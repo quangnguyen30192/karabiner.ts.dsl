@@ -13,5 +13,6 @@ export function buildOpenAppsKeys(): RuleBuilder {
       p: toApp("IntelliJ IDEA Ultimate"),
       m: toApp("Webex"),
       l: toApp("Youtube"),
+      o: toApp("Obsidian"),
     });
 }

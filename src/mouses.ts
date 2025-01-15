@@ -17,7 +17,7 @@ const NAV_KEY = ["w", "s", "a", "d"];
 
 export function buildMouseKeys(): RuleBuilder {
   return rule("Control mouse by keys").manipulators([
-    map("spacebar", "left_control")
+    map("spacebar", ["left_control", "left_option"])
       .to([
         enableVar("mouse_mode"),
         resetVar("mouse_faster_move_speed"),
@@ -112,12 +112,15 @@ export function buildMouseKeys(): RuleBuilder {
         .toMouseCursorPosition({ x: "50%", y: "15%", screen: 1 })
         .description("move mouse the upper of the 1st screen"),
 
-      map("k")
+      map("l")
         .toMouseCursorPosition({ x: "50%", y: "50%", screen: 0 })
         .description("move mouse to the first screen"),
+      map("k")
+        .toMouseCursorPosition({ x: "50%", y: "50%", screen: 2 })
+        .description("move mouse to the different screen"),
       map("j")
         .toMouseCursorPosition({ x: "50%", y: "50%", screen: 1 })
-        .description("move mouse to the 2nd screen"),
+        .description("move mouse to the different screen"),
 
       map("m")
         .toMouseCursorPosition({ x: "50%", y: "85%", screen: 0 })
