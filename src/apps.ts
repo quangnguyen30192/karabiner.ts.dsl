@@ -14,5 +14,6 @@ export function buildOpenAppsKeys(): RuleBuilder {
       m: toApp("Webex"),
       l: toApp("Cursor"),
       o: toApp("Obsidian"),
+      y: toApp("VLC")
     });
 }
