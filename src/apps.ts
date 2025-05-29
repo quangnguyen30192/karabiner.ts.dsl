@@ -6,13 +6,12 @@ export function buildOpenAppsKeys(): RuleBuilder {
     .manipulators({
       k: toApp("Google Chrome"),
       u: toApp("Microsoft Outlook"),
-      n: toApp("Skype"),
+      n: toApp("Discord"),
       f: toApp("Finder"),
       j: toApp("/Applications/Alacritty"),
       b: toApp("Messenger"),
       p: toApp("IntelliJ IDEA Ultimate"),
       m: toApp("Webex"),
-      l: toApp("Cursor"),
       o: toApp("Obsidian"),
       y: toApp("VLC")
     });
